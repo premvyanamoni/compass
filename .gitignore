@@ -8,3 +8,16 @@ wheels/
 
 # Virtual environments
 .venv
+
+# Local data
+data/
+*.lance
+*.lancedb
+
+# Env
+.env
+
+# Eval results local artifacts (keep markdown reports, ignore raw runs)
+evals/results/raw/
+/test_ingest.py
+/CONTEXT.md
