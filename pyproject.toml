@@ -1,10 +1,10 @@
 [project]
 name = "compass"
 version = "0.1.0"
-description = "Add your description here"
+description = "RAG system for AI engineering best practices — production-grade, eval-driven"
 readme = "README.md"
 authors = [
-    { name = "prem-v", email = "premvy007@gmail.com" }
+    { name = "Prem Vyanamoni", email = "prem.vyanamoni@gmail.com" }
 ]
 requires-python = ">=3.11"
 dependencies = []
