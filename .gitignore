@@ -19,3 +19,5 @@ data/
 
 # Eval results local artifacts (keep markdown reports, ignore raw runs)
 evals/results/raw/
+/test_ingest.py
+/CONTEXT.md
