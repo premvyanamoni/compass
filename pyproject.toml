@@ -8,6 +8,9 @@ authors = [
 ]
 requires-python = ">=3.11"
 dependencies = []
+[project.urls]
+Homepage = "https://github.com/premvyanamoni/compass"
+Issues = "https://github.com/premvyanamoni/compass/issues"
 
 [project.scripts]
 compass = "compass:main"
