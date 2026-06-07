@@ -1,8 +1,7 @@
 import httpx
-import trafilatura
 
-async def crawl_url(url: str) -> str | None:
+async def crawl_github(url: str) -> str | None:
     async with httpx.AsyncClient() as client:
         response = await client.get(url, follow_redirects=True)
         response.raise_for_status()
-        return trafilatura.extract(response.text)
+        return response.text
