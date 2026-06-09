@@ -1,6 +1,7 @@
 # Compass — Baseline Eval Results
 
-**Date:** 06/07/2026
+**Date:** 06/08/2026
+**Version:** Baseline v2(Cohere reranker)
 **Generation model:** Sonnet 4.6
 **Judge model:** Sonnet 4.6 — note: same model family as generation, possible self-preference bias
 
@@ -10,6 +11,13 @@
 - MRR: 0.41
 
 **Methodology note:** I wanted to explicity check the substring match before moving to embedding-similarity matching it did improve my hit rate from 0.38 to 0.65 and MRR from 0.22 to 0.41
+
+## Post-reanking
+
+- Hit rate: 0.62
+- MRR: 0.54
+
+**Methodology note:** After implementing cross encoder after the retrieval using cohere API, MRR improved 30%, howevere the hit rate dropped, this helped me understand the tradeoff reranking improved the ranking quality but reduced recall/9fewer candidates survived to the final set)
 
 ## Faithfulness
 
