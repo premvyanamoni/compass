@@ -19,6 +19,21 @@
 
 **Methodology note:** After implementing cross encoder after the retrieval using cohere API, MRR improved 30%, howevere the hit rate dropped, this helped me understand the tradeoff reranking improved the ranking quality but reduced recall/9fewer candidates survived to the final set)
 
+## Post query expansion
+Good numbers first — hit rate 0.70, MRR 0.59. That's meaningful improvement over reranking-only (0.62, 0.54). Query expansion is working.
+
+Combined improvement over the original baseline:
+
+Hit rate: 0.65 → 0.62 (reranking) → 0.70 (+ query expansion)
+MRR: 0.41 → 0.54 (reranking) → 0.59 (+ query expansion)
+Not where I wanted to be which is 0.75 for hit rate, I'll examine if my query variants can be improved by manually chec some samples.
+
+| Baseline | Hit Rate | MRR |
+| --- | --- | --- |
+| Baseline (hybrid only) | 0.65 | 0.41 |
+| + Reranking | 0.62 | 0.54 |
+| + Query expansion | 0.70 | 0.59 |
+
 ## Faithfulness
 
 - Faithful: 38/40
