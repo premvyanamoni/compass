@@ -1,7 +1,7 @@
 # Compass — Baseline Eval Results
 
 **Date:** 06/08/2026
-**Version:** Baseline v3(Query expansion & citation baseline run)
+**Version:** Baseline v4(Semantic chunking)
 **Generation model:** Sonnet 4.6
 **Judge model:** Sonnet 4.6 — note: same model family as generation, possible self-preference bias
 
@@ -33,6 +33,12 @@ Not where I wanted to be which is 0.75 for hit rate, I'll examine if my query va
 | Baseline (hybrid only) | 0.65 | 0.41 |
 | + Reranking | 0.62 | 0.54 |
 | + Query expansion | 0.70 | 0.59 |
+| + Semantic chunking | 0.33 | 0.25 |
+| Reverted to fixed-size | 0.70 | 0.64 |
+
+## Semantic chunking
+tried semantic chunking, hit rate dropped to 0.33, so reverted.
+The likely cause: with only 1,216 chunks now that covers the same corpus, chunks are much larger and more diffuse. The embedding for a 3,000-token chunk representing multiple topics is a "blurred" vector so it doesn't match any single query as precisely as a focused 1,000-token chunk would.
 
 ## Faithfulness
 
