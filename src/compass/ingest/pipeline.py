@@ -22,5 +22,8 @@ async def ingest_url(url: str, config: Config, source_type: str) -> int:
     embeddings = embed_chunks(chunks, config)
     records = [{"vector": embedding, "text": chunk, "source": url, "source_type": source_type, "fetch_date": datetime.utcnow().isoformat()  } for embedding, chunk in zip(embeddings, chunks)]
     db = lancedb.connect(config.lancedb_path)
-    db.open_table("documents").add(records)
+    try:
+        db.open_table("documents").add(records)
+    except ValueError:
+        db.create_table("documents", data=records)
     return len(records)
