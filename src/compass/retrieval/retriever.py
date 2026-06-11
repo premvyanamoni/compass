@@ -2,9 +2,9 @@ import asyncio
 
 import lancedb
 from compass.config import Config
-from compass.ingest.embedder import embed_chunks
+from compass.ingest.embedder import embed_chunks_voyage
 from rank_bm25 import BM25Okapi
-import cohere
+import voyageai
 
 from compass.retrieval.query_expansion import expand_query
 
@@ -20,7 +20,7 @@ async def retrieve(original_query: str, config: Config) -> list[dict]:
     bm25 = BM25Okapi(corpus)
 
     def retrieve_for_query(query: str) -> list[dict]:
-        query_embedding = embed_chunks([query], config)[0]
+        query_embedding = embed_chunks_voyage([query], config, "query")[0]
         dense_results = table.search(query_embedding).limit(10).to_pandas()[["text", "source"]].to_dict(orient="records")
         scores = bm25.get_scores(query.split())
         bm25_top = sorted(zip(scores, all_docs), key=lambda x: x[0], reverse=True)[:10]
@@ -36,6 +36,6 @@ async def retrieve(original_query: str, config: Config) -> list[dict]:
 
 
 def rerank(query: str, results: list[dict], config: Config) -> list[dict]:
-    co = cohere.Client(api_key=config.cohere_api_key)
-    reranked = co.rerank(query=query, documents=[r["text"] for r in results], top_n=5, model="rerank-v3.5")
+    vo = voyageai.Client(api_key=config.voyage_api_key)
+    reranked = vo.rerank(query=query, documents=[r["text"] for r in results], top_k=5, model="rerank-2")
     return [results[r.index] for r in reranked.results]

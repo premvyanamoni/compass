@@ -20,6 +20,7 @@
 **Methodology note:** After implementing cross encoder after the retrieval using cohere API, MRR improved 30%, howevere the hit rate dropped, this helped me understand the tradeoff reranking improved the ranking quality but reduced recall/9fewer candidates survived to the final set)
 
 ## Post query expansion
+
 Good numbers first — hit rate 0.70, MRR 0.59. That's meaningful improvement over reranking-only (0.62, 0.54). Query expansion is working.
 
 Combined improvement over the original baseline:
@@ -28,17 +29,24 @@ Hit rate: 0.65 → 0.62 (reranking) → 0.70 (+ query expansion)
 MRR: 0.41 → 0.54 (reranking) → 0.59 (+ query expansion)
 Not where I wanted to be which is 0.75 for hit rate, I'll examine if my query variants can be improved by manually chec some samples.
 
+
+## Semantic chunking
+
+tried semantic chunking, hit rate dropped to 0.33, so reverted.
+The likely cause: with only 1,216 chunks now that covers the same corpus, chunks are much larger and more diffuse. The embedding for a 3,000-token chunk representing multiple topics is a "blurred" vector so it doesn't match any single query as precisely as a focused 1,000-token chunk would.
+
+## Voyage embeddings
+
+switching from local sentence-transformers to Voyage AI embeddings improved retrieval hit rate from 0.70 to 0.88.
+
 | Baseline | Hit Rate | MRR |
 | --- | --- | --- |
 | Baseline (hybrid only) | 0.65 | 0.41 |
 | + Reranking | 0.62 | 0.54 |
 | + Query expansion | 0.70 | 0.59 |
 | + Semantic chunking | 0.33 | 0.25 |
-| Reverted to fixed-size | 0.70 | 0.64 |
-
-## Semantic chunking
-tried semantic chunking, hit rate dropped to 0.33, so reverted.
-The likely cause: with only 1,216 chunks now that covers the same corpus, chunks are much larger and more diffuse. The embedding for a 3,000-token chunk representing multiple topics is a "blurred" vector so it doesn't match any single query as precisely as a focused 1,000-token chunk would.
+| + Reverted to fixed-size | 0.70 | 0.64 |
+| + Voyage embeddings + reranking| 0.88 | 0.81 |
 
 ## Faithfulness
 

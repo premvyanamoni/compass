@@ -1,7 +1,7 @@
 import json
 
 from compass.config import Config
-from compass.ingest.embedder import embed_chunks
+from compass.ingest.embedder import embed_chunks_voyage
 from compass.retrieval.retriever import retrieve
 from numpy import dot
 from numpy.linalg import norm
@@ -12,11 +12,11 @@ async def main():
         records = [json.loads(line) for line in f]
     hit_rate = 0
     mrr = 0
-    relevant_embeddings = embed_chunks([r["relevant_chunk"] for r in records], config)
+    relevant_embeddings = embed_chunks_voyage([r["relevant_chunk"] for r in records], config, "document")
     for i, record in enumerate(records):
         retrieval_results = await retrieve(record["question"], config)
         for rank, r in enumerate(retrieval_results):
-            text_embedding =  embed_chunks([r["text"]], config)
+            text_embedding =  embed_chunks_voyage([r["text"]], config, "document")
             relevant_embedding = relevant_embeddings[i]
             if dot(text_embedding[0], relevant_embedding)/(norm(text_embedding) * norm(relevant_embedding)) > 0.7:
                 hit_rate += 1
