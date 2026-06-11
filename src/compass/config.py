@@ -11,3 +11,4 @@ class Config(BaseSettings):
     llm_model_name: str = "claude-sonnet-4-6"
     chunk_size: int = 1000
     chunk_overlap: int = 200
+    voyage_api_key:str
