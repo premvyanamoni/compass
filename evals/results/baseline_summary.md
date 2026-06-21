@@ -1,7 +1,7 @@
 # Compass — Baseline Eval Results
 
 **Date:** 06/08/2026
-**Version:** Baseline v4(Semantic chunking)
+**Version:** Baseline v2(Cohere reranker)
 **Generation model:** Sonnet 4.6
 **Judge model:** Sonnet 4.6 — note: same model family as generation, possible self-preference bias
 
@@ -19,6 +19,8 @@
 
 **Methodology note:** After implementing cross encoder after the retrieval using cohere API, MRR improved 30%, howevere the hit rate dropped, this helped me understand the tradeoff reranking improved the ranking quality but reduced recall/9fewer candidates survived to the final set)
 
+<<<<<<< Updated upstream
+=======
 ## Post query expansion
 
 Good numbers first — hit rate 0.70, MRR 0.59. That's meaningful improvement over reranking-only (0.62, 0.54). Query expansion is working.
@@ -29,7 +31,6 @@ Hit rate: 0.65 → 0.62 (reranking) → 0.70 (+ query expansion)
 MRR: 0.41 → 0.54 (reranking) → 0.59 (+ query expansion)
 Not where I wanted to be which is 0.75 for hit rate, I'll examine if my query variants can be improved by manually chec some samples.
 
-
 ## Semantic chunking
 
 tried semantic chunking, hit rate dropped to 0.33, so reverted.
@@ -37,7 +38,7 @@ The likely cause: with only 1,216 chunks now that covers the same corpus, chunks
 
 ## Voyage embeddings
 
-switching from local sentence-transformers to Voyage AI embeddings improved retrieval hit rate from 0.70 to 0.88.
+switching from local sentence-transformers to Voyage AI embeddings improved retrieval hit rate from 0.70 to 0.88.****
 
 | Baseline | Hit Rate | MRR |
 | --- | --- | --- |
@@ -46,8 +47,9 @@ switching from local sentence-transformers to Voyage AI embeddings improved retr
 | + Query expansion | 0.70 | 0.59 |
 | + Semantic chunking | 0.33 | 0.25 |
 | + Reverted to fixed-size | 0.70 | 0.64 |
-| + Voyage embeddings + reranking| 0.88 | 0.81 |
+| + Voyage embeddings + reranking | 0.88 | 0.81 |
 
+>>>>>>> Stashed changes
 ## Faithfulness
 
 - Faithful: 38/40
@@ -66,19 +68,14 @@ roughly 1 in 9 times, the system refused when it actually should have answered. 
 
 ## Citation accuracy
 
-Faithfulness rate: 108.5/205, Partial: 131, Unfaithful: 31
-
-Citation accuracy: 108.5/205 weighted score (53%) — that meant across 205 individual citation checks, only 43 were fully faithful, 131 partial, 31 unfaithful.
-
-When I Compare that to overall faithfulness from above (38/40 = 95%): the question-level check looked good, but citation-level checking is much stricter — it checks whether each specific [N] reference actually supports the adjacent claim, not just whether the answer as a whole is grounded.
-
-The high partial count (131) — learned that citations aren't outright wrong, but the model is often citing a chunk that's loosely related rather than directly supporting the claim. This helped me understand the kind of subtle failure that question-level faithfulness misses entirely.
+status — e.g., "Run incomplete due to API rate limits; harness built and validated on
+partial data, full run pending"
 
 ## Known issues / follow-ups
 
 - source distribution skew
 - vague eval questions
-- rate limit handling(done)
+- rate limit handling
 
 ## What I'd do differently next iteration
 
