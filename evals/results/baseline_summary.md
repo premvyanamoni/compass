@@ -73,14 +73,10 @@ When I Compare that to overall faithfulness from above (38/40 = 95%): the questi
 
 The high partial count (131) — learned that citations aren't outright wrong, but the model is often citing a chunk that's loosely related rather than directly supporting the claim. This helped me understand the kind of subtle failure that question-level faithfulness misses entirely.
 
-status — e.g., "Run incomplete due to API rate limits; harness built and validated on
-partial data, full run pending"
-
 ## Known issues / follow-ups
 
 - source distribution skew
 - vague eval questions
-- rate limit handling(done)
 
 ## What I'd do differently next iteration
 
