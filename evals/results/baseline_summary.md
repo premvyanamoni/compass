@@ -65,6 +65,14 @@ roughly 1 in 9 times, the system refused when it actually should have answered. 
 
 ## Citation accuracy
 
+Faithfulness rate: 108.5/205, Partial: 131, Unfaithful: 31
+
+Citation accuracy: 108.5/205 weighted score (53%) — that meant across 205 individual citation checks, only 43 were fully faithful, 131 partial, 31 unfaithful.
+
+When I Compare that to overall faithfulness from above (38/40 = 95%): the question-level check looked good, but citation-level checking is much stricter — it checks whether each specific [N] reference actually supports the adjacent claim, not just whether the answer as a whole is grounded.
+
+The high partial count (131) — learned that citations aren't outright wrong, but the model is often citing a chunk that's loosely related rather than directly supporting the claim. This helped me understand the kind of subtle failure that question-level faithfulness misses entirely.
+
 status — e.g., "Run incomplete due to API rate limits; harness built and validated on
 partial data, full run pending"
 
@@ -72,7 +80,7 @@ partial data, full run pending"
 
 - source distribution skew
 - vague eval questions
-- rate limit handling
+- rate limit handling(done)
 
 ## What I'd do differently next iteration
 
