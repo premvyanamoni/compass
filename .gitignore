@@ -22,3 +22,4 @@ evals/results/raw/
 /test_ingest.py
 /CONTEXT.md
 /CLAUDE.md
+.chainlit/

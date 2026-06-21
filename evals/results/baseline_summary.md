@@ -1,7 +1,7 @@
 # Compass — Baseline Eval Results
 
 **Date:** 06/08/2026
-**Version:** Baseline v4(Semantic chunking)
+**Version:** Baseline v4(Voyage Embeddings)
 **Generation model:** Sonnet 4.6
 **Judge model:** Sonnet 4.6 — note: same model family as generation, possible self-preference bias
 
@@ -29,7 +29,6 @@ Hit rate: 0.65 → 0.62 (reranking) → 0.70 (+ query expansion)
 MRR: 0.41 → 0.54 (reranking) → 0.59 (+ query expansion)
 Not where I wanted to be which is 0.75 for hit rate, I'll examine if my query variants can be improved by manually chec some samples.
 
-
 ## Semantic chunking
 
 tried semantic chunking, hit rate dropped to 0.33, so reverted.
@@ -37,7 +36,7 @@ The likely cause: with only 1,216 chunks now that covers the same corpus, chunks
 
 ## Voyage embeddings
 
-switching from local sentence-transformers to Voyage AI embeddings improved retrieval hit rate from 0.70 to 0.88.
+switching from local sentence-transformers to Voyage AI embeddings improved retrieval hit rate from 0.70 to 0.88.****
 
 | Baseline | Hit Rate | MRR |
 | --- | --- | --- |
@@ -46,7 +45,7 @@ switching from local sentence-transformers to Voyage AI embeddings improved retr
 | + Query expansion | 0.70 | 0.59 |
 | + Semantic chunking | 0.33 | 0.25 |
 | + Reverted to fixed-size | 0.70 | 0.64 |
-| + Voyage embeddings + reranking| 0.88 | 0.81 |
+| + Voyage embeddings + reranking | 0.88 | 0.81 |
 
 ## Faithfulness
 
@@ -78,7 +77,6 @@ The high partial count (131) — learned that citations aren't outright wrong, b
 
 - source distribution skew
 - vague eval questions
-- rate limit handling(done)
 
 ## What I'd do differently next iteration
 
