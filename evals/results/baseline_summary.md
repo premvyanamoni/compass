@@ -1,7 +1,7 @@
 # Compass — Baseline Eval Results
 
 **Date:** 06/08/2026
-**Version:** Baseline v2(Cohere reranker)
+**Version:** Baseline v4(Voyage Embeddings)
 **Generation model:** Sonnet 4.6
 **Judge model:** Sonnet 4.6 — note: same model family as generation, possible self-preference bias
 
@@ -19,8 +19,6 @@
 
 **Methodology note:** After implementing cross encoder after the retrieval using cohere API, MRR improved 30%, howevere the hit rate dropped, this helped me understand the tradeoff reranking improved the ranking quality but reduced recall/9fewer candidates survived to the final set)
 
-<<<<<<< Updated upstream
-=======
 ## Post query expansion
 
 Good numbers first — hit rate 0.70, MRR 0.59. That's meaningful improvement over reranking-only (0.62, 0.54). Query expansion is working.
@@ -49,7 +47,6 @@ switching from local sentence-transformers to Voyage AI embeddings improved retr
 | + Reverted to fixed-size | 0.70 | 0.64 |
 | + Voyage embeddings + reranking | 0.88 | 0.81 |
 
->>>>>>> Stashed changes
 ## Faithfulness
 
 - Faithful: 38/40
